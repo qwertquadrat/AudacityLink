@@ -21,8 +21,7 @@ bl_info = {
     "version" : (1,0),
     "blender" : (2, 78, 0),
     "location" : "Video Sequence Editor > Properties",
-    "description" : "Easier sound editing with VSE using Audacity; Exports and (re)imports VSE sound "+\
-"strips to/from Audacity project",
+    "description" : "Easier sound editing with VSE using Audacity",
     "category" : "Import-Export"
 }
 
