@@ -49,8 +49,6 @@ lang_button4_detail = \
 # lang_text1 = \
 #     "Edit and export via (File > Export Audio) in Audacity as .wav (!!!Do not touch the file name!!!)?"
 # lang_text1_detail = lang_text1
-# lang_error1 = \
-#     "The sound file must not be packed!"
 lang_error2 = \
     "Could not find Audacity!\nPlease edit Audacity path under User Preferences > Add-ons > Audacity-Link."
 lang_filepath1 = \
@@ -315,9 +313,6 @@ def export_tmp(self, context):
     # Definitions
     strip = act_strip(context)
     actual_fps = context.scene.render.fps / context.scene.render.fps_base
-    if(strip.sound.packed_file):
-        self.report(type = {'ERROR_INVALID_CONTEXT'}, message = lang_error1)
-        return {'CANCELLED'}
     audiopath = bpy.path.abspath(strip.sound.filepath, library=strip.sound.library)
     filename = os.path.basename(audiopath)
     offset = float(strip.frame_start)/actual_fps
@@ -362,7 +357,14 @@ def export_tmp(self, context):
     
     # Generate Audacity Project Directory
     os.mkdir(auProjectpath)
-    copy2(audiopath, auProjectpath)
+    if strip.sound.packed_file:
+        oldpath = strip.sound.filepath
+        strip.sound.filepath = os.path.join(auProjectpath,filename)
+        strip.sound.unpack(method='USE_ORIGINAL')
+        strip.sound.pack()
+        strip.sound.filepath = oldpath
+    else:
+        copy2(audiopath, auProjectpath)
     
     #Load user preferences
     user_preferences = context.user_preferences
