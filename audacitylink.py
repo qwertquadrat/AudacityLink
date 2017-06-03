@@ -1,5 +1,3 @@
-#TODO Export packed soundfile
-
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
 #  This program is free software; you can redistribute it and/or modify it under the terms of the GNU General 
@@ -335,8 +333,8 @@ def export_tmp(self, context):
     audFile.write(\
         '<?xml version="1.0" standalone="no" ?>\n' +\
         '<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" '+\
-        '"http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >\n'+\
-        '<project xmlns="http://audacity.sourceforge.net/xml/"'\
+        '"http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" > '+\
+        '<project xmlns="http://audacity.sourceforge.net/xml/" '+\
         'projname="' + str(strip.sound_strip_additionals.al_tmpID) + '_data" '+\
         'version="1.3.0" audacityversion="2.1.2" sel0="0.0000000000" sel1="0.0000000000" '+\
         'vpos="0" h="0.0000000000" zoom="86.1328125000" rate="44100.0" snapto="off" '+\
