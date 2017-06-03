@@ -333,10 +333,9 @@ def export_tmp(self, context):
         strip.sound_strip_additionals.al_tmpID = random.randint(1,2**30)
 
     # Write file
-    audFilepath = getExportPath(strip.sound_strip_additionals)\
-        +str(strip.sound_strip_additionals.al_tmpID)+".aup"
-    auProjectpath = getExportPath(strip.sound_strip_additionals)\
-        +str(strip.sound_strip_additionals.al_tmpID)+"_data"
+    exportPath=getExportPath(strip.sound_strip_additionals)
+    audFilepath = exportPath + str(strip.sound_strip_additionals.al_tmpID)+".aup"
+    auProjectpath = exportPath + str(strip.sound_strip_additionals.al_tmpID)+"_data"
     audFile = open(audFilepath, "w")
     audFile.write(\
         '<?xml version="1.0" standalone="no" ?>\n' +\
