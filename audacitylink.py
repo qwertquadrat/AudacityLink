@@ -1,5 +1,4 @@
 #TODO Export packed soundfile
-#TODO Only show UI in Timeline/Both mode of VSE
 
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
@@ -194,12 +193,27 @@ class SEQUENCER_PT_AudacityLink(bpy.types.Panel):
     bl_label = "AudacityLink"
     bl_space_type = "SEQUENCE_EDITOR"
     bl_region_type = "UI"
+
+
+    @staticmethod
+    def has_sequencer(context):
+        """Only show UI elements outside VSE Preview
+
+        Copyed from space_sequencer.py
+        """
+        return (context.space_data.view_type in {'SEQUENCER', 'SEQUENCER_PREVIEW'})
+
     @classmethod
     def poll(cls, context):
+        """Similar to SEQUENCER_PT_sound poll"""
+        if not cls.has_sequencer(context):
+            return False
+
         strip = act_strip(context)
         if not strip:
             return False
         return (strip.type == 'SOUND')
+
     def draw(self, context):
         layout = self.layout
         st = context.space_data
